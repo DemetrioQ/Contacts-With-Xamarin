@@ -2,9 +2,8 @@
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="ContactsWithXamarin.Views.ContactsPage"
-             xmlns:ios="clr-namespace:Xamarin.Forms.PlatformConfiguration.iOSSpecific;assembly=Xamarin.Forms.Core"
              xmlns:android="clr-namespace:Xamarin.Forms.PlatformConfiguration.AndroidSpecific;assembly=Xamarin.Forms.Core"
-             ios:Page.UseSafeArea="true">
+             x:Name="contactPage">
 
     <ContentPage.ToolbarItems>
         <ToolbarItem Text="Add"  Command="{Binding AddCommand}"/>
@@ -14,7 +13,6 @@
         Header="" 
         ItemsSource="{Binding Contacts}" 
         SelectedItem="{Binding SelectedContact}"
-        ItemSelected="ListViewItemSelected"
         >
         <ListView.HeaderTemplate>
             <DataTemplate>
@@ -31,7 +29,7 @@
                         </MultiBinding>
                     </ImageCell.Text>
                     <ImageCell.ContextActions>
-                        <MenuItem Text="Delete"></MenuItem>
+                        <MenuItem Text="Delete" Command="{Binding Source={x:Reference contactPage}, Path=BindingContext.DeleteCommand}" CommandParameter="{Binding}"></MenuItem>
                     </ImageCell.ContextActions>
                 </ImageCell>
             

@@ -19,13 +19,5 @@ namespace ContactsWithXamarin.Views
             
         }
 
-        private void ListViewItemSelected(object sender, SelectedItemChangedEventArgs e)
-        {
-            if (e.SelectedItem == null) return;
-
-            // do stuff 
-
-            ((ListView)sender).SelectedItem = null;
-        }
     }
 }

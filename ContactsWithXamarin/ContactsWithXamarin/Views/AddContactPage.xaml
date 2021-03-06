@@ -4,9 +4,7 @@
              x:Class="ContactsWithXamarin.Views.AddContactPage">
     <ContentPage.Content>
         <StackLayout>
-            <Label Text="Welcome to Xamarin.Forms!"
-                VerticalOptions="CenterAndExpand" 
-                HorizontalOptions="CenterAndExpand" />
+            <Entry Text="" Placeholder="First Name"></Entry>
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>

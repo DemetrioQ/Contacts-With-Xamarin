@@ -12,5 +12,10 @@ namespace ContactsWithXamarin.Services
             return App.Current.MainPage.Navigation.PushAsync(page);
         }
 
+        public Task NavigationPopAsync()
+        {
+            return App.Current.MainPage.Navigation.PopAsync();
+        }
+
     }
 }

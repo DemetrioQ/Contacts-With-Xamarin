@@ -5,6 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
+using System.Linq;
 using System.Text;
 using System.Windows.Input;
 using Xamarin.Essentials;
@@ -14,9 +15,12 @@ namespace ContactsWithXamarin.ViewModels
 {
     public class ContactsViewModel : BaseViewModel
     {
-        public List<Contact> Contacts { get; }
+        public ObservableCollection<Contact> Contacts { get; }
         public ICommand AddCommand { get; }
         public ICommand SelectedContactCommand { get; }
+        public ICommand DoneCommand { get; }
+        public ICommand DeleteCommand { get; }
+
 
         private Contact _contact;
         public Contact SelectedContact
@@ -37,7 +41,10 @@ namespace ContactsWithXamarin.ViewModels
         {
             AddCommand = new Command(OnAddContact);
             SelectedContactCommand = new Command<Contact>(OnContactSelected);
-            Contacts = new List<Contact>()
+            DoneCommand = new Command(OnDone);
+            DeleteCommand = new Command<Contact>(OnDeleteContact);
+
+            Contacts = new ObservableCollection<Contact>()
             {
                 new Contact(){FirstName = "Demetrio", LastName = "Quiñones", Image="cat.jpg", Phone="8091111423"}
             };
@@ -49,18 +56,28 @@ namespace ContactsWithXamarin.ViewModels
         }
         private async void OnContactSelected(Contact contact)
         {
+           
            var option = await App.Current.MainPage.DisplayActionSheet($"{contact.FirstName} {contact.LastName}",null,null, new string[] { $"Call {contact.Phone}", "Edit" });
             if(option == $"Call {contact.Phone}")
             {
                 PhoneDialer.Open(contact.Phone);
             }
-            else
+            else if (option == "Edit")
             {
+                await NavigationService.NavigationAsync(new EditContactPage() { BindingContext = this });
 
             }
 
+        }
 
+        public async void OnDone()
+        {
+            await NavigationService.NavigationPopAsync();
+        }
 
+        public void OnDeleteContact(Contact contact)
+        {
+            Contacts.Remove(contact);
         }
     }
 }
