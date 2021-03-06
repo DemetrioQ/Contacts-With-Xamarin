@@ -6,6 +6,6 @@ namespace ContactsWithXamarin.Services
 {
     public interface INavigationService
     {
-        Task NavigationAsync(Page page, bool navigationBar);
+        Task NavigationAsync(Page page);
     }
 }

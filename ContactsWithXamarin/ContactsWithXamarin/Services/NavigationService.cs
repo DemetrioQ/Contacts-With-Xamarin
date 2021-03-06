@@ -7,12 +7,8 @@ namespace ContactsWithXamarin.Services
 {
     public class NavigationService : INavigationService
     {
-        public Task NavigationAsync(Page page, bool navigationBar)
+        public Task NavigationAsync(Page page)
         {
-            if (!navigationBar)
-            {
-                NavigationPage.SetHasNavigationBar(page, false);
-            }
             return App.Current.MainPage.Navigation.PushAsync(page);
         }
 

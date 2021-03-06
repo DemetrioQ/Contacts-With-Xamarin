@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Threading.Tasks;
-using ContactsWithXamarin.Views;
 using Xamarin.Forms;
 
 namespace ContactsWithXamarin.Services
@@ -11,5 +10,6 @@ namespace ContactsWithXamarin.Services
         {
             return App.Current.MainPage.DisplayAlert(title, description, "Ok");
         }
+
     }
 }

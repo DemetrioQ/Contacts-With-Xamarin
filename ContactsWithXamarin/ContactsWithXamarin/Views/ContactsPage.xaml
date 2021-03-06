@@ -9,16 +9,34 @@
     <ContentPage.ToolbarItems>
         <ToolbarItem Text="Add"  Command="{Binding AddCommand}"/>
     </ContentPage.ToolbarItems>
-    <ListView HasUnevenRows="True" Header="" ItemsSource="{Binding Contacts}">
+    <ListView 
+        HasUnevenRows="True" 
+        Header="" 
+        ItemsSource="{Binding Contacts}" 
+        SelectedItem="{Binding SelectedContact}"
+        ItemSelected="ListViewItemSelected"
+        >
         <ListView.HeaderTemplate>
             <DataTemplate>
-                <Label Text="Contacts" FontSize="25" FontAttributes="Bold" HorizontalOptions="Center" TextColor="Black"></Label>
+                <Label Style="{StaticResource headerLabelStyle}" Text="Contacts"></Label>
             </DataTemplate>
         </ListView.HeaderTemplate>
         <ListView.ItemTemplate>
+            <DataTemplate>
+                <ImageCell ImageSource="{Binding Image}"  Detail="{Binding Phone}">
+                    <ImageCell.Text>
+                        <MultiBinding StringFormat="{} {0} {1}">
+                            <Binding Path="FirstName"></Binding>
+                            <Binding Path="LastName"></Binding>
+                        </MultiBinding>
+                    </ImageCell.Text>
+                    <ImageCell.ContextActions>
+                        <MenuItem Text="Delete"></MenuItem>
+                    </ImageCell.ContextActions>
+                </ImageCell>
             
+            </DataTemplate>
         </ListView.ItemTemplate>
     </ListView>
     
-
 </ContentPage>

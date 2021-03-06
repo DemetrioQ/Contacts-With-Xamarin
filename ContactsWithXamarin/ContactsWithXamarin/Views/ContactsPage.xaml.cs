@@ -1,4 +1,6 @@
-﻿using System;
+﻿using ContactsWithXamarin.ViewModels;
+using ContactsWithXamarin.Services;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
@@ -13,6 +15,17 @@ namespace ContactsWithXamarin.Views
         public ContactsPage()
         {
             InitializeComponent();
+            BindingContext = new ContactsViewModel(new AlertService(), new NavigationService());
+            
+        }
+
+        private void ListViewItemSelected(object sender, SelectedItemChangedEventArgs e)
+        {
+            if (e.SelectedItem == null) return;
+
+            // do stuff 
+
+            ((ListView)sender).SelectedItem = null;
         }
     }
 }
