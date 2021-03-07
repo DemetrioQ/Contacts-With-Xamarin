@@ -15,32 +15,25 @@ namespace ContactsWithXamarin.ViewModels
 {
     public class ContactsViewModel : BaseViewModel
     {
-        public ObservableCollection<Contact> Contacts { get; }
+        public ObservableCollection<Contact> Contacts { get; set; }
         public ICommand AddCommand { get; }
-        public ICommand SelectedContactCommand { get; }
+        public ICommand MoreCommand { get; }
         public ICommand DoneCommand { get; }
         public ICommand DeleteCommand { get; }
+        
 
 
         private Contact _contact;
         public Contact SelectedContact
         {
             get { return _contact; }
-            set
-            {
-                _contact = value;
-
-                if(_contact != null)
-                {
-                    SelectedContactCommand.Execute(_contact);
-                }
-            }
-
+            set { _contact = value;}
         }
+
         public ContactsViewModel(IAlertService alertService, INavigationService navigationService) : base(alertService, navigationService)
         {
             AddCommand = new Command(OnAddContact);
-            SelectedContactCommand = new Command<Contact>(OnContactSelected);
+            MoreCommand = new Command<Contact>(OnMoreContact);
             DoneCommand = new Command(OnDone);
             DeleteCommand = new Command<Contact>(OnDeleteContact);
 
@@ -52,9 +45,9 @@ namespace ContactsWithXamarin.ViewModels
 
         private async void OnAddContact()
         {
-            await NavigationService.NavigationAsync(new AddContactPage());
+            await NavigationService.NavigationAsync(new AddContactPage(Contacts));
         }
-        private async void OnContactSelected(Contact contact)
+        private async void OnMoreContact(Contact contact)
         {
            
            var option = await App.Current.MainPage.DisplayActionSheet($"{contact.FirstName} {contact.LastName}",null,null, new string[] { $"Call {contact.Phone}", "Edit" });
@@ -64,8 +57,8 @@ namespace ContactsWithXamarin.ViewModels
             }
             else if (option == "Edit")
             {
+                SelectedContact = contact;
                 await NavigationService.NavigationAsync(new EditContactPage() { BindingContext = this });
-
             }
 
         }
@@ -73,6 +66,7 @@ namespace ContactsWithXamarin.ViewModels
         public async void OnDone()
         {
             await NavigationService.NavigationPopAsync();
+            SelectedContact = null;
         }
 
         public void OnDeleteContact(Contact contact)

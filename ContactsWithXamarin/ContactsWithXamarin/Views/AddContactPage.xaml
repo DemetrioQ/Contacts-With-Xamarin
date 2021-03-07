@@ -4,7 +4,10 @@
              x:Class="ContactsWithXamarin.Views.AddContactPage">
     <ContentPage.Content>
         <StackLayout>
-            <Entry Text="" Placeholder="First Name"></Entry>
+            <Entry Text="{Binding FirstName}" Placeholder="First Name"></Entry>
+            <Entry Text="{Binding LastName}" Placeholder="Last Name"></Entry>
+            <Entry Text="{Binding Phone}" Placeholder="First Name" Keyboard="Telephone"></Entry>
+            <Button Text="Done" VerticalOptions="EndAndExpand" Command="{Binding AddCommand}"></Button>
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>

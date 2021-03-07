@@ -9,8 +9,8 @@
             <Image Source="{Binding SelectedContact.Image}" HorizontalOptions="Center"></Image>
             <Entry Text="{Binding SelectedContact.FirstName}" Placeholder="First Name"></Entry>
             <Entry Text="{Binding SelectedContact.LastName}" Placeholder="Last Name"></Entry>
-            <Entry Text="{Binding SelectedContact.Phone}" Placeholder="Phone Number"></Entry>
-            <Button Text="Done" VerticalOptions="EndAndExpand" Command="{Binding DoneCommand}"></Button>
+            <Entry Text="{Binding SelectedContact.Phone}" Placeholder="Phone Number" Keyboard="Telephone"></Entry>
+            <!--<Button Text="Done" VerticalOptions="EndAndExpand" Command="{Binding DoneCommand}"></Button>!-->
     </StackLayout>
     </ContentPage.Content>
 </ContentPage>

@@ -1,10 +1,11 @@
 ﻿using ContactsWithXamarin.Services;
 using System;
+using System.Collections.Specialized;
 using System.ComponentModel;
 
 namespace ContactsWithXamarin.ViewModels
 {
-    public abstract class BaseViewModel : INotifyPropertyChanged
+    public abstract class BaseViewModel : INotifyPropertyChanged, INotifyCollectionChanged
     {
         public IAlertService AlertService { get; }
         public INavigationService NavigationService { get; }
@@ -17,5 +18,6 @@ namespace ContactsWithXamarin.ViewModels
 
 
         public event PropertyChangedEventHandler PropertyChanged;
+        public event NotifyCollectionChangedEventHandler CollectionChanged;
     }
 }

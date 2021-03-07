@@ -8,11 +8,15 @@
     <ContentPage.ToolbarItems>
         <ToolbarItem Text="Add"  Command="{Binding AddCommand}"/>
     </ContentPage.ToolbarItems>
+    
     <ListView 
+        
         HasUnevenRows="True" 
         Header="" 
         ItemsSource="{Binding Contacts}" 
-        SelectedItem="{Binding SelectedContact}"
+        ItemSelected="ListViewItemSelected"
+
+        
         >
         <ListView.HeaderTemplate>
             <DataTemplate>
@@ -29,6 +33,7 @@
                         </MultiBinding>
                     </ImageCell.Text>
                     <ImageCell.ContextActions>
+                        <MenuItem Text="More" Command="{Binding  Source={x:Reference contactPage}, Path=BindingContext.MoreCommand}" CommandParameter="{Binding}"></MenuItem>
                         <MenuItem Text="Delete" Command="{Binding Source={x:Reference contactPage}, Path=BindingContext.DeleteCommand}" CommandParameter="{Binding}"></MenuItem>
                     </ImageCell.ContextActions>
                 </ImageCell>
