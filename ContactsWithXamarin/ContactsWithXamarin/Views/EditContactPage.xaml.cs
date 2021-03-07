@@ -1,5 +1,9 @@
-﻿using System;
+﻿using ContactsWithXamarin.Models;
+using ContactsWithXamarin.Services;
+using ContactsWithXamarin.ViewModels;
+using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -12,9 +16,10 @@ namespace ContactsWithXamarin.Views
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class EditContactPage : ContentPage
     {
-        public EditContactPage()
+        public EditContactPage(ObservableCollection<ContactGroupCollection> contacts, Contact contact)
         {
             InitializeComponent();
+            BindingContext = new EditContactViewModel(new AlertService(),new NavigationService(),contacts, contact);
         }
     }
 }

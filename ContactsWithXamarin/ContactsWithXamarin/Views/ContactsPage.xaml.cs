@@ -16,7 +16,8 @@ namespace ContactsWithXamarin.Views
         {
             InitializeComponent();
             BindingContext = new ContactsViewModel(new AlertService(), new NavigationService());
-            
+
+     
         }
 
         private void ListViewItemSelected(object sender, SelectedItemChangedEventArgs e)

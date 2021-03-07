@@ -6,7 +6,7 @@
         <StackLayout>
             <Entry Text="{Binding FirstName}" Placeholder="First Name"></Entry>
             <Entry Text="{Binding LastName}" Placeholder="Last Name"></Entry>
-            <Entry Text="{Binding Phone}" Placeholder="First Name" Keyboard="Telephone"></Entry>
+            <Entry Text="{Binding Phone}" Placeholder="Phone Number" Keyboard="Telephone"></Entry>
             <Button Text="Done" VerticalOptions="EndAndExpand" Command="{Binding AddCommand}"></Button>
         </StackLayout>
     </ContentPage.Content>

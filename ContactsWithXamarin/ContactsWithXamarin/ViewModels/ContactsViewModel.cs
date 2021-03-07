@@ -15,31 +15,52 @@ namespace ContactsWithXamarin.ViewModels
 {
     public class ContactsViewModel : BaseViewModel
     {
-        public ObservableCollection<Contact> Contacts { get; set; }
+        public ObservableCollection<ContactGroupCollection> Contacts { get; set; }
         public ICommand AddCommand { get; }
         public ICommand MoreCommand { get; }
-        public ICommand DoneCommand { get; }
         public ICommand DeleteCommand { get; }
-        
+
 
 
         private Contact _contact;
-        public Contact SelectedContact
+        public Contact Contact
         {
             get { return _contact; }
-            set { _contact = value;}
+            set
+            {
+                _contact = value;
+            }
         }
 
         public ContactsViewModel(IAlertService alertService, INavigationService navigationService) : base(alertService, navigationService)
         {
             AddCommand = new Command(OnAddContact);
             MoreCommand = new Command<Contact>(OnMoreContact);
-            DoneCommand = new Command(OnDone);
             DeleteCommand = new Command<Contact>(OnDeleteContact);
 
-            Contacts = new ObservableCollection<Contact>()
+            Contacts = new ObservableCollection<ContactGroupCollection>()
             {
-                new Contact(){FirstName = "Demetrio", LastName = "Quiñones", Image="cat.jpg", Phone="8091111423"}
+                new ContactGroupCollection("D")
+                {
+                    new Contact(){FirstName = "Demetrio", LastName = "Quiñones", Image="cat.jpg", Phone="8091111423"},
+                    new Contact(){FirstName = "Diego", LastName = "Marignal", Image="cat.jpg", Phone="8091111423"},
+                },
+                new ContactGroupCollection("J")
+                {
+                    new Contact(){FirstName = "Jose", LastName = "Espiral", Image="cat.jpg", Phone="8091111423"}
+                },
+                new ContactGroupCollection("P")
+                {
+                new Contact(){FirstName = "Pedro", LastName = "Lost", Image="cat.jpg", Phone="8091111423"}
+
+                },
+                new ContactGroupCollection("M")
+                {
+                    new Contact(){FirstName = "Manuel", LastName = "Paulino", Image="cat.jpg", Phone="8091111423"}
+                }
+
+
+
             };
         }
 
@@ -49,29 +70,26 @@ namespace ContactsWithXamarin.ViewModels
         }
         private async void OnMoreContact(Contact contact)
         {
-           
-           var option = await App.Current.MainPage.DisplayActionSheet($"{contact.FirstName} {contact.LastName}",null,null, new string[] { $"Call {contact.Phone}", "Edit" });
-            if(option == $"Call {contact.Phone}")
+            var option = await App.Current.MainPage.DisplayActionSheet($"{contact.FirstName} {contact.LastName}", null, null, new string[] { $"Call {contact.Phone}", "Edit" });
+            if (option == $"Call {contact.Phone}")
             {
                 PhoneDialer.Open(contact.Phone);
             }
             else if (option == "Edit")
             {
-                SelectedContact = contact;
-                await NavigationService.NavigationAsync(new EditContactPage() { BindingContext = this });
+                await NavigationService.NavigationAsync(new EditContactPage(Contacts, contact));
             }
 
         }
 
-        public async void OnDone()
-        {
-            await NavigationService.NavigationPopAsync();
-            SelectedContact = null;
-        }
 
         public void OnDeleteContact(Contact contact)
         {
-            Contacts.Remove(contact);
+            var contactGroup = Contacts.FirstOrDefault(c => c.Contains(contact));
+            if (contactGroup != null)
+            {
+                contactGroup.Remove(contact);
+            }
         }
     }
 }
