@@ -16,7 +16,7 @@ namespace ContactsWithXamarin.ViewModels
         public ICommand DoneCommand { get; }
         public Contact Before { get; set; }
         public Contact After { get; set; }
-        public EditContactViewModel(IAlertService alertService, INavigationService navigationService, ObservableCollection<ContactGroupCollection> contacts, Contact contact) : base(alertService, navigationService)
+        public EditContactViewModel(IAlertService alertService, INavigationService navigationService, SortService sortService, ObservableCollection<ContactGroupCollection> contacts, Contact contact) : base(alertService, navigationService, sortService)
         {
             DoneCommand = new Command(OnDone);
             Contacts = contacts;
@@ -37,6 +37,7 @@ namespace ContactsWithXamarin.ViewModels
                     int index = contactGroup.IndexOf(Before);
                     contactGroup.Remove(Before);
                     contactGroup.Insert(index, After);
+                    
                 }
                 else
                 {
@@ -56,6 +57,9 @@ namespace ContactsWithXamarin.ViewModels
                         contactGroup.Add(After);
                     }
                 }
+
+                SortService.SortCollection(Contacts);
+
                 await NavigationService.NavigationPopAsync();
             }
 

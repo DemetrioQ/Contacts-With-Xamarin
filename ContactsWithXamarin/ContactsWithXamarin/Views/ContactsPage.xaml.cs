@@ -15,7 +15,7 @@ namespace ContactsWithXamarin.Views
         public ContactsPage()
         {
             InitializeComponent();
-            BindingContext = new ContactsViewModel(new AlertService(), new NavigationService());
+            BindingContext = new ContactsViewModel(new AlertService(), new NavigationService(), new SortService());
 
      
         }

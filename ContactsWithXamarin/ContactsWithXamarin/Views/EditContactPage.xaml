@@ -4,6 +4,9 @@
              xmlns:local="clr-namespace:ContactsWithXamarin.Views"
              x:Class="ContactsWithXamarin.Views.EditContactPage"
              >
+    <ContentPage.ToolbarItems>
+        
+    </ContentPage.ToolbarItems>
     <ContentPage.Content>
         <StackLayout>
             <Image Source="{Binding After.Image}" HorizontalOptions="Center"></Image>
@@ -11,6 +14,6 @@
             <Entry Text="{Binding After.LastName}" Placeholder="Last Name"></Entry>
             <Entry Text="{Binding After.Phone}" Placeholder="Phone Number" Keyboard="Telephone"></Entry>
             <Button Text="Done" VerticalOptions="EndAndExpand" Command="{Binding DoneCommand}"></Button>
-        </StackLayout>  
+        </StackLayout>
     </ContentPage.Content>
 </ContentPage>

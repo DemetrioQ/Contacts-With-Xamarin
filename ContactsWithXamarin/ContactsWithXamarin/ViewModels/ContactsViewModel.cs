@@ -21,7 +21,6 @@ namespace ContactsWithXamarin.ViewModels
         public ICommand DeleteCommand { get; }
 
 
-
         private Contact _contact;
         public Contact Contact
         {
@@ -32,22 +31,20 @@ namespace ContactsWithXamarin.ViewModels
             }
         }
 
-        public ContactsViewModel(IAlertService alertService, INavigationService navigationService) : base(alertService, navigationService)
+        public ContactsViewModel(IAlertService alertService, INavigationService navigationService, SortService sortService) : base(alertService, navigationService, sortService)
         {
             AddCommand = new Command(OnAddContact);
             MoreCommand = new Command<Contact>(OnMoreContact);
             DeleteCommand = new Command<Contact>(OnDeleteContact);
 
+            
+
             Contacts = new ObservableCollection<ContactGroupCollection>()
             {
                 new ContactGroupCollection("D")
-                {
-                    new Contact(){FirstName = "Demetrio", LastName = "Quiñones", Image="cat.jpg", Phone="8091111423"},
+                { 
                     new Contact(){FirstName = "Diego", LastName = "Marignal", Image="cat.jpg", Phone="8091111423"},
-                },
-                new ContactGroupCollection("J")
-                {
-                    new Contact(){FirstName = "Jose", LastName = "Espiral", Image="cat.jpg", Phone="8091111423"}
+                    new Contact(){FirstName = "Demetrio", LastName = "Quiñones", Image="cat.jpg", Phone="8091111423"}
                 },
                 new ContactGroupCollection("P")
                 {
@@ -57,6 +54,10 @@ namespace ContactsWithXamarin.ViewModels
                 new ContactGroupCollection("M")
                 {
                     new Contact(){FirstName = "Manuel", LastName = "Paulino", Image="cat.jpg", Phone="8091111423"}
+                },
+                new ContactGroupCollection("J")
+                {
+                    new Contact(){FirstName = "Jose", LastName = "Espiral", Image="cat.jpg", Phone="8091111423"}
                 }
 
 
@@ -91,5 +92,6 @@ namespace ContactsWithXamarin.ViewModels
                 contactGroup.Remove(contact);
             }
         }
+
     }
 }

@@ -9,5 +9,16 @@
             <Setter Property="HorizontalOptions" Value="Center"/>
             <Setter Property="TextColor" Value="Black"/>
         </Style>
+        <Color x:Key="DarkButtonBackground">#921813</Color>
+        <Style x:Key="FABPrimary" TargetType="ImageButton">
+            <Setter Property="CornerRadius" Value="100"/>
+            <Setter Property="BackgroundColor" Value="{StaticResource DarkButtonBackground}"/>
+            <Setter Property="HeightRequest" Value="100"/>
+            <Setter Property="WidthRequest" Value="100"/>
+            <Setter Property="HorizontalOptions" Value="CenterAndExpand"/>
+            <Setter Property="VerticalOptions" Value="CenterAndExpand"/>
+            <Setter Property="Padding" Value="15"/>
+            <Setter Property="Margin" Value="0,0,0,15"/>
+        </Style>
     </Application.Resources>
 </Application>

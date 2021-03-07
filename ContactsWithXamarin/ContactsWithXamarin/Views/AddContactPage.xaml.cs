@@ -18,7 +18,7 @@ namespace ContactsWithXamarin.Views
         public AddContactPage(ObservableCollection<ContactGroupCollection> contacts)
         {
             InitializeComponent();
-            BindingContext = new AddContactViewModel(new AlertService(), new NavigationService(), contacts);
+            BindingContext = new AddContactViewModel(new AlertService(), new NavigationService(), new SortService() ,contacts);
         }
 
     }

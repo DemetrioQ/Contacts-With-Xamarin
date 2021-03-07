@@ -19,7 +19,7 @@ namespace ContactsWithXamarin.Views
         public EditContactPage(ObservableCollection<ContactGroupCollection> contacts, Contact contact)
         {
             InitializeComponent();
-            BindingContext = new EditContactViewModel(new AlertService(),new NavigationService(),contacts, contact);
+            BindingContext = new EditContactViewModel(new AlertService(),new NavigationService(), new SortService(),contacts, contact);
         }
     }
 }

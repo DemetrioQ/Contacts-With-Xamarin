@@ -21,7 +21,7 @@ namespace ContactsWithXamarin.ViewModels
         public string Notes { get; set; }
         public ICommand AddCommand { get; }
         public ObservableCollection<ContactGroupCollection> Contacts { get; }
-        public AddContactViewModel(IAlertService alertService, INavigationService navigationService, ObservableCollection<ContactGroupCollection> contacts) : base(alertService, navigationService)
+        public AddContactViewModel(IAlertService alertService, INavigationService navigationService, SortService sortService , ObservableCollection<ContactGroupCollection> contacts) : base(alertService, navigationService, sortService)
         {
             AddCommand = new Command(OnAddContact);
             Contacts = contacts;
@@ -48,6 +48,8 @@ namespace ContactsWithXamarin.ViewModels
                 {
                     contactGroup.Add(contact);
                 }
+                SortService.SortCollection(Contacts);
+
                 await NavigationService.NavigationPopAsync();
             }
 

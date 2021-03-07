@@ -10,10 +10,12 @@ namespace ContactsWithXamarin.ViewModels
         public IAlertService AlertService { get; }
         public INavigationService NavigationService { get; }
 
-        protected BaseViewModel(IAlertService alertService, INavigationService navigationService)
+        public ISortService SortService { get; }
+        protected BaseViewModel(IAlertService alertService, INavigationService navigationService, ISortService sortService)
         {
             AlertService = alertService;
             NavigationService = navigationService;
+            SortService = sortService;
         }
 
 
