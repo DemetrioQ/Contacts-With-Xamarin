@@ -12,62 +12,68 @@ namespace ContactsWithXamarin.ViewModels
 {
     public class AddContactViewModel : BaseViewModel
     {
-        private ImageSource _image;
-        public ImageSource Image
-        {
-            get { return _image; }
-
-            set
-            {
-                _image = value;
-                OnPropertyChanged("Image");
-            }
-
-        }
-        public string FirstName { get; set; }
-        public string LastName { get; set; }
-        public string Company { get; set; }
-        public string Phone { get; set; }
-        public string Email { get; set; }
-        public string Notes { get; set; }
         public ICommand AddCommand { get; }
         public ICommand SelectImageCommand { get; }
-        public ObservableCollection<ContactGroupCollection> Contacts { get; }
+
+        private Contact _contact;
+        public Contact Contact
+        {
+            get { return _contact; }
+            set
+            {
+                _contact = value;
+                OnPropertyChanged("Contact");
+            }
+        }
+        private ObservableCollection<ContactGroupCollection> _contacts;
+        public ObservableCollection<ContactGroupCollection> Contacts
+        {
+            get
+            {
+                return _contacts;
+            }
+            set
+            {
+                _contacts = value;
+                OnPropertyChanged("Contacts");
+            }
+        }
         public AddContactViewModel(IAlertService alertService, INavigationService navigationService, SortService sortService, ActionSheetService actionSheetService, ObservableCollection<ContactGroupCollection> contacts) : base(alertService, navigationService, sortService, actionSheetService)
         {
             AddCommand = new Command(OnAddContact);
             SelectImageCommand = new Command(OnSelectImage);
             Contacts = contacts;
-            Image = "cat.jpg";
+            Contact = new Contact();
+            Contact.Image = "cat.jpg";
         }
 
         public async void OnAddContact()
         {
-            if (string.IsNullOrEmpty(FirstName) || string.IsNullOrEmpty(Phone))
+            if (string.IsNullOrEmpty(Contact.FirstName) || string.IsNullOrEmpty(Contact.Phone))
             {
                 await AlertService.AlertAsync("Alerta", "The first name and phone fields can't be empty when adding a contact");
             }
             else
             {
-                Contact contact = new Contact() { Image = Image, FirstName = FirstName, LastName = LastName, Phone = Phone };
-                contact.FirstName = char.ToUpper(contact.FirstName[0]) + contact.FirstName.Substring(1);
-                if (!string.IsNullOrEmpty(contact.LastName))
+               
+                Contact.FirstName = char.ToUpper(Contact.FirstName[0]) + Contact.FirstName.Substring(1);
+                if (!string.IsNullOrEmpty(Contact.LastName))
                 {
-                    contact.LastName = char.ToUpper(contact.LastName[0]) + contact.LastName.Substring(1);
+                    Contact.LastName = char.ToUpper(Contact.LastName[0]) + Contact.LastName.Substring(1);
                 }
-                var contactGroup = Contacts.FirstOrDefault(p => p.Key == contact.FirstName[0].ToString());
+                var contactGroup = Contacts.FirstOrDefault(p => p.Key == Contact.FirstName[0].ToString());
                 if (contactGroup == null)
                 {
-                    Contacts.Add(new ContactGroupCollection(contact.FirstName[0].ToString())
+                    Contacts.Add(new ContactGroupCollection(Contact.FirstName[0].ToString())
                     {
-                        contact
+                        Contact
                     });
                     SortService.SortGroupCollection(Contacts);
 
                 }
                 else
                 {
-                    contactGroup.Add(contact);
+                    contactGroup.Add(Contact);
                     SortService.SortContactCollection(contactGroup, Contacts);
                 };
 
@@ -85,14 +91,17 @@ namespace ContactsWithXamarin.ViewModels
                 
                 var stream = await photo.OpenReadAsync();
 
-                Image = photo.FullPath;
-                Console.WriteLine(photo.FullPath);
+                Contact.Image = photo.FullPath;
 
 
             }
             else if (option == "Choose Photo")
             {
+                var photo = await MediaPicker.PickPhotoAsync();
 
+                var stream = await photo.OpenReadAsync();
+
+                Contact.Image = photo.FullPath;
             }
         }
 

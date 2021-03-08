@@ -12,7 +12,19 @@ namespace ContactsWithXamarin.ViewModels
 {
     public class ContactsViewModel : BaseViewModel
     {
-        public ObservableCollection<ContactGroupCollection> Contacts { get; set; }
+        private ObservableCollection<ContactGroupCollection> _contacts;
+        public ObservableCollection<ContactGroupCollection> Contacts
+        {
+            get
+            {
+                return _contacts;
+            }
+            set
+            {
+                _contacts = value;
+                OnPropertyChanged("Contacts");
+            }
+        }
         public ICommand AddCommand { get; }
         public ICommand MoreCommand { get; }
         public ICommand DeleteCommand { get; }
