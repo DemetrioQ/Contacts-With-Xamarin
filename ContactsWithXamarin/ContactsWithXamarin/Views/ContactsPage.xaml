@@ -3,6 +3,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="ContactsWithXamarin.Views.ContactsPage"
              xmlns:android="clr-namespace:Xamarin.Forms.PlatformConfiguration.AndroidSpecific;assembly=Xamarin.Forms.Core"
+             xmlns:local="clr-namespace:ContactsWithXamarin.Controls"
              x:Name="contactPage">
 
     <AbsoluteLayout VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand" x:Name="absLayout">
@@ -35,18 +36,13 @@
             </ListView.Header>
             <ListView.ItemTemplate>
                 <DataTemplate>
-                    <ImageCell ImageSource="{Binding Image}"  Detail="{Binding Phone}" TextColor="black">
-                        <ImageCell.Text>
-                            <MultiBinding StringFormat="{} {0} {1}">
-                                <Binding Path="FirstName"></Binding>
-                                <Binding Path="LastName"></Binding>
-                            </MultiBinding>
-                        </ImageCell.Text>
-                        <ImageCell.ContextActions>
+                    <ViewCell>
+                        <local:ContactsListView></local:ContactsListView>
+                        <ViewCell.ContextActions>
                             <MenuItem Text="More" Command="{Binding  Source={x:Reference contactPage}, Path=BindingContext.MoreCommand}" CommandParameter="{Binding}"></MenuItem>
                             <MenuItem Text="Delete" Command="{Binding Source={x:Reference contactPage}, Path=BindingContext.DeleteCommand}" CommandParameter="{Binding}"></MenuItem>
-                        </ImageCell.ContextActions>
-                    </ImageCell>
+                        </ViewCell.ContextActions>
+                    </ViewCell>
 
                 </DataTemplate>
             </ListView.ItemTemplate>
