@@ -1,0 +1,16 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<ContentView xmlns="http://xamarin.com/schemas/2014/forms" 
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="ContactsWithXamarin.Controls.ContacInfoView">
+  <ContentView.Content>
+        <StackLayout>
+            <Grid RowDefinitions="*,Auto,Auto,Auto" Margin="20">
+                <ImageButton Source="{Binding Image}"  HeightRequest="100" WidthRequest="100"  Aspect="AspectFill" HorizontalOptions="Center" Grid.Row="0" Style="{StaticResource AnimationImageButton}" Command="{Binding SelectImageCommand}" CornerRadius="60"></ImageButton>
+                <Entry Text="{Binding FirstName}" Placeholder="First Name" Grid.Row="1"></Entry>
+                <Entry Text="{Binding LastName}" Placeholder="Last Name " Grid.Row="2"></Entry>
+                <Entry Text="{Binding Phone}" Placeholder="Phone Number" Keyboard="Telephone" Grid.Row="3"></Entry>
+
+            </Grid>
+        </StackLayout>
+    </ContentView.Content>
+</ContentView>

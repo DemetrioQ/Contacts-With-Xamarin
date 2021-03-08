@@ -1,11 +1,5 @@
-﻿using ContactsWithXamarin.ViewModels;
-using ContactsWithXamarin.Services;
-using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using ContactsWithXamarin.Services;
+using ContactsWithXamarin.ViewModels;
 using Xamarin.Forms;
 
 namespace ContactsWithXamarin.Views
@@ -15,9 +9,8 @@ namespace ContactsWithXamarin.Views
         public ContactsPage()
         {
             InitializeComponent();
-            BindingContext = new ContactsViewModel(new AlertService(), new NavigationService(), new SortService());
+            BindingContext = new ContactsViewModel(new AlertService(), new NavigationService(), new SortService(), new ActionSheetService());
 
-     
         }
 
         private void ListViewItemSelected(object sender, SelectedItemChangedEventArgs e)

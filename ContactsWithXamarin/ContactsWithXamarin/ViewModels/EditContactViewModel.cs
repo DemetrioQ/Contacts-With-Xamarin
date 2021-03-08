@@ -1,10 +1,7 @@
 ﻿using ContactsWithXamarin.Models;
 using ContactsWithXamarin.Services;
-using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
-using System.Text;
 using System.Windows.Input;
 using Xamarin.Forms;
 
@@ -16,7 +13,7 @@ namespace ContactsWithXamarin.ViewModels
         public ICommand DoneCommand { get; }
         public Contact Before { get; set; }
         public Contact After { get; set; }
-        public EditContactViewModel(IAlertService alertService, INavigationService navigationService, SortService sortService, ObservableCollection<ContactGroupCollection> contacts, Contact contact) : base(alertService, navigationService, sortService)
+        public EditContactViewModel(IAlertService alertService, INavigationService navigationService, SortService sortService, ActionSheetService actionSheetService, ObservableCollection<ContactGroupCollection> contacts, Contact contact) : base(alertService, navigationService, sortService, actionSheetService)
         {
             DoneCommand = new Command(OnDone);
             Contacts = contacts;
@@ -31,13 +28,13 @@ namespace ContactsWithXamarin.ViewModels
             }
             else
             {
-                if(After.FirstName[0].ToString() == Before.FirstName[0].ToString())
+                if (After.FirstName[0].ToString() == Before.FirstName[0].ToString())
                 {
                     var contactGroup = Contacts.FirstOrDefault(c => c.Contains(Before));
-                    int index = contactGroup.IndexOf(Before);
                     contactGroup.Remove(Before);
-                    contactGroup.Insert(index, After);
-                    
+                    contactGroup.Add(After);
+                    SortService.SortContactCollection(contactGroup, Contacts);
+
                 }
                 else
                 {
@@ -45,20 +42,29 @@ namespace ContactsWithXamarin.ViewModels
                     beforecontactGroup.Remove(Before);
 
                     var contactGroup = Contacts.FirstOrDefault(p => p.Key == After.FirstName[0].ToString());
+
+                    After.FirstName = char.ToUpper(After.FirstName[0]) + After.FirstName.Substring(1);
+                    if (!string.IsNullOrEmpty(After.LastName))
+                    {
+                        After.LastName = char.ToUpper(After.LastName[0]) + After.LastName.Substring(1);
+                    }
+
                     if (contactGroup == null)
                     {
                         Contacts.Add(new ContactGroupCollection(After.FirstName[0].ToString())
                         {
                             After
                         });
+                        SortService.SortGroupCollection(Contacts);
                     }
                     else
                     {
                         contactGroup.Add(After);
+                        SortService.SortContactCollection(contactGroup, Contacts);
                     }
                 }
 
-                SortService.SortCollection(Contacts);
+
 
                 await NavigationService.NavigationPopAsync();
             }

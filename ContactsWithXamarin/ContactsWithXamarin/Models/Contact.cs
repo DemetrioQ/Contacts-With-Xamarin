@@ -1,12 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using Xamarin.Forms;
 
 namespace ContactsWithXamarin.Models
 {
     public class Contact
     {
-        public string Image { get; set; }
+        public ImageSource Image { get; set; }
         public string FirstName { get; set; }
         public string LastName { get; set; }
         public string Company { get; set; }

@@ -1,15 +1,12 @@
 ﻿using ContactsWithXamarin.Models;
 using ContactsWithXamarin.Services;
 using ContactsWithXamarin.Views;
-using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.ComponentModel;
 using System.Linq;
-using System.Text;
 using System.Windows.Input;
 using Xamarin.Essentials;
 using Xamarin.Forms;
+using Contact = ContactsWithXamarin.Models.Contact;
 
 namespace ContactsWithXamarin.ViewModels
 {
@@ -31,18 +28,18 @@ namespace ContactsWithXamarin.ViewModels
             }
         }
 
-        public ContactsViewModel(IAlertService alertService, INavigationService navigationService, SortService sortService) : base(alertService, navigationService, sortService)
+        public ContactsViewModel(IAlertService alertService, INavigationService navigationService, SortService sortService, ActionSheetService actionSheetService) : base(alertService, navigationService, sortService, actionSheetService)
         {
             AddCommand = new Command(OnAddContact);
             MoreCommand = new Command<Contact>(OnMoreContact);
             DeleteCommand = new Command<Contact>(OnDeleteContact);
 
-            
+
 
             Contacts = new ObservableCollection<ContactGroupCollection>()
             {
                 new ContactGroupCollection("D")
-                { 
+                {
                     new Contact(){FirstName = "Diego", LastName = "Marignal", Image="cat.jpg", Phone="8091111423"},
                     new Contact(){FirstName = "Demetrio", LastName = "Quiñones", Image="cat.jpg", Phone="8091111423"}
                 },
@@ -71,7 +68,7 @@ namespace ContactsWithXamarin.ViewModels
         }
         private async void OnMoreContact(Contact contact)
         {
-            var option = await App.Current.MainPage.DisplayActionSheet($"{contact.FirstName} {contact.LastName}", null, null, new string[] { $"Call {contact.Phone}", "Edit" });
+            var option = await ActionSheetService.ActionSheetAsync($"{contact.FirstName} {contact.LastName}", new string[] { $"Call {contact.Phone}", "Edit" });
             if (option == $"Call {contact.Phone}")
             {
                 PhoneDialer.Open(contact.Phone);

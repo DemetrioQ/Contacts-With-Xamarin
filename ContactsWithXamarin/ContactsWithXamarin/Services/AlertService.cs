@@ -1,6 +1,4 @@
-﻿using System;
-using System.Threading.Tasks;
-using Xamarin.Forms;
+﻿using System.Threading.Tasks;
 
 namespace ContactsWithXamarin.Services
 {

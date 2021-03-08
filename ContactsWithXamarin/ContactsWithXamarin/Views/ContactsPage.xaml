@@ -3,25 +3,33 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="ContactsWithXamarin.Views.ContactsPage"
              xmlns:android="clr-namespace:Xamarin.Forms.PlatformConfiguration.AndroidSpecific;assembly=Xamarin.Forms.Core"
-             Title="Contacts"
              x:Name="contactPage">
 
-    <ContentPage.ToolbarItems>
-        <ToolbarItem Text="Add"  Command="{Binding AddCommand}"/>
-    </ContentPage.ToolbarItems>
-    <AbsoluteLayout VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand">
+    <AbsoluteLayout VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand" x:Name="absLayout">
         <ListView 
-        HasUnevenRows="True" 
-        ItemsSource="{Binding Contacts}" 
-        GroupDisplayBinding="{Binding Key}"
-        ItemSelected="ListViewItemSelected"
-        IsGroupingEnabled="True"
-        SeparatorColor="Blue"
-        SeparatorVisibility="None"
+            HasUnevenRows="True" 
+            ItemsSource="{Binding Contacts}" 
+            GroupDisplayBinding="{Binding Key}"
+            GroupShortNameBinding="{Binding Key}"
+            ItemSelected="ListViewItemSelected"
+            IsGroupingEnabled="True"
+            SeparatorColor="Blue"
+            SeparatorVisibility="None"
+            HeightRequest="{Binding Path=Height, Source={x:Reference absLayout}}"
         >
             <ListView.Header>
-                <Frame Margin="0,10,0,10">
-                    <Entry Placeholder="Search Contacts"></Entry>
+                <!--<Frame Margin="10,15,10,10" HasShadow="True" CornerRadius="10" HeightRequest="40" WidthRequest="60" Padding="10">
+                    <Grid ColumnDefinitions="30,*,30,30" >
+                        <Entry Grid.Column="0" ></Entry>
+                        <Entry Placeholder="Search Contacts" Grid.Column="1"></Entry>
+                        <Entry Grid.Column="2" ></Entry>
+                        <Entry Grid.Column="3" ></Entry>
+                    </Grid>
+                </Frame>-->
+                <Frame Margin="10,15,10,10" HasShadow="True" CornerRadius="10" HeightRequest="40" WidthRequest="60" Padding="10">
+                    <SearchBar>
+
+                    </SearchBar>
                 </Frame>
 
             </ListView.Header>
@@ -43,6 +51,7 @@
                 </DataTemplate>
             </ListView.ItemTemplate>
         </ListView>
-        <ImageButton Source="AddIcon"  VerticalOptions="End" BackgroundColor="Transparent" AbsoluteLayout.LayoutBounds="1,1,AutoSize,AutoSize" AbsoluteLayout.LayoutFlags="PositionProportional" Style="{StaticResource FABPrimary}"></ImageButton>
+        <ImageButton Source="AddContactIcon"  VerticalOptions="End" BackgroundColor="Transparent" AbsoluteLayout.LayoutBounds="1,1,AutoSize,AutoSize" AbsoluteLayout.LayoutFlags="PositionProportional" Style="{StaticResource FABPrimary}" Command="{Binding AddCommand}">
+        </ImageButton>
     </AbsoluteLayout>
 </ContentPage>

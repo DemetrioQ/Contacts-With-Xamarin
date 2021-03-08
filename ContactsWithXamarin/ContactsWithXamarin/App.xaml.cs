@@ -1,7 +1,5 @@
 ﻿using ContactsWithXamarin.Views;
-using System;
 using Xamarin.Forms;
-using Xamarin.Forms.Xaml;
 
 namespace ContactsWithXamarin
 {
@@ -10,8 +8,11 @@ namespace ContactsWithXamarin
         public App()
         {
             InitializeComponent();
+            var contact = new ContactsPage();
+            NavigationPage.SetHasNavigationBar(contact, false);
+            MainPage = new NavigationPage(contact);
 
-            MainPage = new NavigationPage(new ContactsPage());
+
         }
 
         protected override void OnStart()
