@@ -76,6 +76,7 @@ namespace ContactsWithXamarin.ViewModels
                     contactGroup.Add(Contact);
                     SortService.SortContactCollection(contactGroup, Contacts);
                 };
+               
 
                 await NavigationService.NavigationPopAsync();
             }
@@ -88,20 +89,15 @@ namespace ContactsWithXamarin.ViewModels
             if (option == "Take Photo")
             {
                 var photo = await MediaPicker.CapturePhotoAsync();
-                
-                var stream = await photo.OpenReadAsync();
 
                 Contact.Image = photo.FullPath;
-
-
             }
             else if (option == "Choose Photo")
             {
                 var photo = await MediaPicker.PickPhotoAsync();
 
-                var stream = await photo.OpenReadAsync();
-
                 Contact.Image = photo.FullPath;
+
             }
         }
 

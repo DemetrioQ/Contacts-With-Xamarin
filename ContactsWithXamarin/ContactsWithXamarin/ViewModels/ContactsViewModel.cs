@@ -1,6 +1,7 @@
 ﻿using ContactsWithXamarin.Models;
 using ContactsWithXamarin.Services;
 using ContactsWithXamarin.Views;
+using PCLStorage;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Windows.Input;
@@ -45,34 +46,8 @@ namespace ContactsWithXamarin.ViewModels
             AddCommand = new Command(OnAddContact);
             MoreCommand = new Command<Contact>(OnMoreContact);
             DeleteCommand = new Command<Contact>(OnDeleteContact);
-
-
-
-            Contacts = new ObservableCollection<ContactGroupCollection>()
-            {
-                new ContactGroupCollection("D")
-                {
-                    new Contact(){FirstName = "Diego", LastName = "Marignal", Image="cat.jpg", Phone="8091111423"},
-                    new Contact(){FirstName = "Demetrio", LastName = "Quiñones", Image="cat.jpg", Phone="8091111423"}
-                },
-                new ContactGroupCollection("P")
-                {
-                new Contact(){FirstName = "Pedro", LastName = "Lost", Image="cat.jpg", Phone="8091111423"}
-
-                },
-                new ContactGroupCollection("M")
-                {
-                    new Contact(){FirstName = "Manuel", LastName = "Paulino", Image="cat.jpg", Phone="8091111423"}
-                },
-                new ContactGroupCollection("J")
-                {
-                    new Contact(){FirstName = "Jose", LastName = "Espiral", Image="cat.jpg", Phone="8091111423"}
-                }
-
-
-
-            };
-        }
+            GetData();
+         }
 
         private async void OnAddContact()
         {
@@ -92,13 +67,24 @@ namespace ContactsWithXamarin.ViewModels
 
         }
 
-
+        public async void GetData()
+        {
+            /*IFolder folder = PCLStorage.FileSystem.Current.LocalStorage;
+            string fileName = "userdata.txt";
+            IFile file = await folder.CreateFileAsync(fileName, CreationCollisionOption.ReplaceExisting);*/
+            Contacts = await DataManagmentService.LoadData(Contacts);
+        }
         public void OnDeleteContact(Contact contact)
         {
             var contactGroup = Contacts.FirstOrDefault(c => c.Contains(contact));
             if (contactGroup != null)
             {
                 contactGroup.Remove(contact);
+                if(contactGroup.Count == 0)
+                {
+                    Contacts.Remove(contactGroup);
+                }
+                DataManagmentService.SaveData(Contacts);
             }
         }
 

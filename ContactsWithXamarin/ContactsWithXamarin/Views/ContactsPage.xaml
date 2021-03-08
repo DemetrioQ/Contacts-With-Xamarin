@@ -11,7 +11,6 @@
             HasUnevenRows="True" 
             ItemsSource="{Binding Contacts}" 
             GroupDisplayBinding="{Binding Key}"
-            GroupShortNameBinding="{Binding Key}"
             ItemSelected="ListViewItemSelected"
             IsGroupingEnabled="True"
             SeparatorColor="Blue"

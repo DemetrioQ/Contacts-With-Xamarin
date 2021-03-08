@@ -1,13 +1,16 @@
 ﻿using ContactsWithXamarin.ViewModels;
+using Newtonsoft.Json;
+using System;
 using System.ComponentModel;
+using Xamarin.Essentials;
 using Xamarin.Forms;
 
 namespace ContactsWithXamarin.Models
 {
     public class Contact : INotifyPropertyChanged
     {
-        private ImageSource _image;
-        public ImageSource Image {
+        private string _image;
+        public string Image {
             get { return _image; }
             set
             {
@@ -22,6 +25,11 @@ namespace ContactsWithXamarin.Models
         public string Email { get; set; }
         public string Notes { get; set; }
 
+        public Contact()
+        {
+            
+        }
+
         public event PropertyChangedEventHandler PropertyChanged;
         protected virtual void OnPropertyChanged(string propertyName)
         {
@@ -30,4 +38,5 @@ namespace ContactsWithXamarin.Models
             PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
         }
     }
+
 }

@@ -15,6 +15,7 @@ namespace ContactsWithXamarin.Services
             {
                 groups.Add(group);
             }
+            DataManagmentService.SaveData(groups);
 
         }
 
@@ -31,6 +32,9 @@ namespace ContactsWithXamarin.Services
             }
 
             groups.Insert(index, Group);
+
+            DataManagmentService.SaveData(groups);
+
         }
     }
 }

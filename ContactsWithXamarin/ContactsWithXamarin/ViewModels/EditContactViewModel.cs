@@ -1,5 +1,6 @@
 ﻿using ContactsWithXamarin.Models;
 using ContactsWithXamarin.Services;
+using PCLStorage;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Windows.Input;
@@ -27,7 +28,7 @@ namespace ContactsWithXamarin.ViewModels
         public ICommand SelectImageCommand { get; }
         public ICommand DoneCommand { get; }
         public Contact Before { get; set; }
-        
+
         public Contact Contact { get; set; }
         public EditContactViewModel(IAlertService alertService, INavigationService navigationService, SortService sortService, ActionSheetService actionSheetService, ObservableCollection<ContactGroupCollection> contacts, Contact contact) : base(alertService, navigationService, sortService, actionSheetService)
         {
@@ -58,6 +59,10 @@ namespace ContactsWithXamarin.ViewModels
                     var beforecontactGroup = Contacts.FirstOrDefault(c => c.Contains(Before));
                     beforecontactGroup.Remove(Before);
 
+                    if(beforecontactGroup.Count == 0)
+                    {
+                        Contacts.Remove(beforecontactGroup);
+                    }
                     var contactGroup = Contacts.FirstOrDefault(p => p.Key == Contact.FirstName[0].ToString());
 
                     Contact.FirstName = char.ToUpper(Contact.FirstName[0]) + Contact.FirstName.Substring(1);
@@ -80,8 +85,6 @@ namespace ContactsWithXamarin.ViewModels
                         SortService.SortContactCollection(contactGroup, Contacts);
                     }
                 }
-
-
 
                 await NavigationService.NavigationPopAsync();
             }
@@ -113,10 +116,16 @@ namespace ContactsWithXamarin.ViewModels
             if (option == "Take Photo")
             {
                 var photo = await MediaPicker.CapturePhotoAsync();
+                if (photo != null)
+                {
 
-                var stream = await photo.OpenReadAsync();
+                    //var stream = await photo.OpenReadAsync();
 
-                Contact.Image = photo.FullPath;
+                    Contact.Image = photo.FullPath;
+
+
+
+                }
 
 
             }
@@ -124,9 +133,15 @@ namespace ContactsWithXamarin.ViewModels
             {
                 var photo = await MediaPicker.PickPhotoAsync();
 
-                var stream = await photo.OpenReadAsync();
+                if (photo != null)
+                {
 
-                Contact.Image = photo.FullPath;
+                    //var stream = await photo.OpenReadAsync();
+
+                    Contact.Image =  photo.FullPath;
+
+
+                }
             }
         }
 
