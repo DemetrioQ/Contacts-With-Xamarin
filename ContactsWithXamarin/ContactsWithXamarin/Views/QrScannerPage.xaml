@@ -1,0 +1,9 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="ContactsWithXamarin.Views.QrScannerPage"
+             xmlns:zxing="clr-namespace:ZXing.Net.Mobile.Forms;assembly=ZXing.Net.Mobile.Forms">
+    <ContentPage.Content>
+        <zxing:ZXingScannerView IsScanning="True" ScanResultCommand="{Binding ScanResultCommand}"></zxing:ZXingScannerView>
+    </ContentPage.Content>
+</ContentPage>

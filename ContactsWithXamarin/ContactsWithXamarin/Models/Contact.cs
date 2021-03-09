@@ -18,10 +18,39 @@ namespace ContactsWithXamarin.Models
                 OnPropertyChanged("Image");
             } 
         }
-        public string FirstName { get; set; }
-        public string LastName { get; set; }
+        private string _firstName;
+        public string FirstName
+        {
+            get { return _firstName; }
+            set
+            {
+                _firstName = value;
+                OnPropertyChanged("FirstName");
+            }
+        }
+        private string _lastName;
+
+        public string LastName
+        {
+            get { return _lastName; }
+            set
+            {
+                _lastName = value;
+                OnPropertyChanged("LastName");
+            }
+        }
+        private string _phone;
+
+        public string Phone
+        {
+            get { return _phone; }
+            set
+            {
+                _phone = value;
+                OnPropertyChanged("Phone");
+            }
+        }
         public string Company { get; set; }
-        public string Phone { get; set; }
         public string Email { get; set; }
         public string Notes { get; set; }
 

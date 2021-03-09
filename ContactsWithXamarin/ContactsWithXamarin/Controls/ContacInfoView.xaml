@@ -3,14 +3,14 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="ContactsWithXamarin.Controls.ContacInfoView">
   <ContentView.Content>
-        <StackLayout>
-            <Grid RowDefinitions="*,Auto,Auto,Auto" Margin="20">
-                <ImageButton Source="{Binding Contact.Image}"  HeightRequest="100" WidthRequest="100"  Aspect="AspectFill" HorizontalOptions="Center" Grid.Row="0" Style="{StaticResource AnimationImageButton}" Command="{Binding SelectImageCommand}" CornerRadius="60"></ImageButton>
-                <Entry Text="{Binding Contact.FirstName}" Placeholder="First Name" Grid.Row="1"></Entry>
-                <Entry Text="{Binding Contact.LastName}" Placeholder="Last Name " Grid.Row="2"></Entry>
+
+        <Grid RowDefinitions="*,Auto,Auto,Auto" Margin="20">
+            <ImageButton Source="{Binding Contact.Image}" Margin="0,0,0,40" HeightRequest="70" WidthRequest="70" Aspect="AspectFill" HorizontalOptions="CenterAndExpand" Grid.Row="0" Style="{StaticResource AnimationImageButton}" Command="{Binding SelectImageCommand}" CornerRadius="100"></ImageButton>
+            <Entry Text="{Binding Contact.FirstName}" Placeholder="First Name" Grid.Row="1"></Entry>
+                <Entry Text="{Binding Contact.LastName}" Placeholder="Last Name " Grid.Row="2"></Entry> 
                 <Entry Text="{Binding Contact.Phone}" Placeholder="Phone Number" Keyboard="Telephone" Grid.Row="3"></Entry>
 
             </Grid>
-        </StackLayout>
+        
     </ContentView.Content>
 </ContentView>

@@ -5,13 +5,13 @@
              x:Class="ContactsWithXamarin.Views.EditContactPage"
              Title="Edit contact"
              >
+
     <ContentPage.ToolbarItems>
-        
+        <ToolbarItem Text="Save" Command="{Binding DoneCommand}"></ToolbarItem>
     </ContentPage.ToolbarItems>
     <ContentPage.Content>
         <StackLayout>
             <local:ContacInfoView></local:ContacInfoView>
-            <Button Text="Done" VerticalOptions="EndAndExpand" Command="{Binding DoneCommand}"></Button>
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>

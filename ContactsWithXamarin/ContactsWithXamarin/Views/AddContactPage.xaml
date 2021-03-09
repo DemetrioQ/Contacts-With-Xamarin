@@ -4,11 +4,15 @@
              x:Class="ContactsWithXamarin.Views.AddContactPage"
              xmlns:local="clr-namespace:ContactsWithXamarin.Controls"
              Title="Create contact">
-    
+
+    <ContentPage.ToolbarItems>
+        <ToolbarItem Text="Save" Command="{Binding AddCommand}"></ToolbarItem>
+        <ToolbarItem Text="Scan QR code" Command="{Binding ScanQrCommand}"></ToolbarItem>
+    </ContentPage.ToolbarItems>
     <ContentPage.Content>
-        <StackLayout>
+   
+    <StackLayout>
             <local:ContacInfoView></local:ContacInfoView>
-            <Button Text="Done" VerticalOptions="EndAndExpand" Command="{Binding AddCommand}"></Button>
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>

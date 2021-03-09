@@ -1,5 +1,6 @@
 ﻿using ContactsWithXamarin.Models;
 using ContactsWithXamarin.Services;
+using ContactsWithXamarin.Views;
 using System;
 using System.Collections.ObjectModel;
 using System.Linq;
@@ -14,6 +15,7 @@ namespace ContactsWithXamarin.ViewModels
     {
         public ICommand AddCommand { get; }
         public ICommand SelectImageCommand { get; }
+        public ICommand ScanQrCommand { get; }
 
         private Contact _contact;
         public Contact Contact
@@ -42,9 +44,11 @@ namespace ContactsWithXamarin.ViewModels
         {
             AddCommand = new Command(OnAddContact);
             SelectImageCommand = new Command(OnSelectImage);
+            ScanQrCommand = new Command(OnScanQrCode);
             Contacts = contacts;
             Contact = new Contact();
-            Contact.Image = "cat.jpg";
+            Contact.Image = "AddImageIcon";
+
         }
 
         public async void OnAddContact()
@@ -55,7 +59,10 @@ namespace ContactsWithXamarin.ViewModels
             }
             else
             {
-               
+                if (Contact.Image == "AddImageIcon")
+                {
+                    Contact.Image = "DefaultProfileImage";
+                }
                 Contact.FirstName = char.ToUpper(Contact.FirstName[0]) + Contact.FirstName.Substring(1);
                 if (!string.IsNullOrEmpty(Contact.LastName))
                 {
@@ -76,7 +83,7 @@ namespace ContactsWithXamarin.ViewModels
                     contactGroup.Add(Contact);
                     SortService.SortContactCollection(contactGroup, Contacts);
                 };
-               
+
 
                 await NavigationService.NavigationPopAsync();
             }
@@ -99,6 +106,11 @@ namespace ContactsWithXamarin.ViewModels
                 Contact.Image = photo.FullPath;
 
             }
+        }
+
+        public async void OnScanQrCode()
+        {
+            await NavigationService.NavigationAsync(new QrScannerPage(Contact));
         }
 
 
