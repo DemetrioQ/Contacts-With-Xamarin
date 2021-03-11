@@ -73,6 +73,7 @@ namespace ContactsWithXamarin.ViewModels
 
                     if (contactGroup == null)
                     {
+                        Contact.GroupHeader = Contact.FirstName[0].ToString();
                         Contacts.Add(new ContactGroupCollection(Contact.FirstName[0].ToString())
                         {
                             Contact

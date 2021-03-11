@@ -2,15 +2,42 @@
 <ContentView xmlns="http://xamarin.com/schemas/2014/forms" 
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="ContactsWithXamarin.Controls.ContacInfoView">
-  <ContentView.Content>
+    <ContentView.Resources>
+        <Style x:Key="FieldsMargin" TargetType="{x:Type Entry}">
+            <Setter Property="Margin" Value="0,0,0,20"/>
+        </Style>
+    </ContentView.Resources>
+    <ContentView.Content>
 
-        <Grid RowDefinitions="*,Auto,Auto,Auto" Margin="20">
-            <ImageButton Source="{Binding Contact.Image}" Margin="0,0,0,40" HeightRequest="70" WidthRequest="70" Aspect="AspectFill" HorizontalOptions="CenterAndExpand" Grid.Row="0" Style="{StaticResource AnimationImageButton}" Command="{Binding SelectImageCommand}" CornerRadius="100"></ImageButton>
-            <Entry Text="{Binding Contact.FirstName}" Placeholder="First Name" Grid.Row="1"></Entry>
-                <Entry Text="{Binding Contact.LastName}" Placeholder="Last Name " Grid.Row="2"></Entry> 
-                <Entry Text="{Binding Contact.Phone}" Placeholder="Phone Number" Keyboard="Telephone" Grid.Row="3"></Entry>
+        <Grid RowDefinitions="*,Auto,Auto,Auto,Auto,Auto,Auto,Auto" ColumnDefinitions="50,*" Margin="20">
+            <ImageButton Source="{Binding Contact.Image}" Margin="0,0,0,40" HeightRequest="70" WidthRequest="70" Aspect="AspectFill" HorizontalOptions="CenterAndExpand" Grid.Row="0" Grid.ColumnSpan="2" Style="{StaticResource AnimationImageButton}" Command="{Binding SelectImageCommand}" CornerRadius="100"></ImageButton>
 
-            </Grid>
-        
+            <Image Grid.Row="1" Grid.Column="0" Source="NameIcon" Style="{StaticResource IconsStyle}"></Image>
+            <Entry Text="{Binding Contact.FirstName}" Placeholder="First Name" Grid.Row="1" Grid.Column="1"></Entry>
+            <Entry Text="{Binding Contact.LastName}" Placeholder="Last Name " Grid.Row="2" Grid.Column="1" Style="{StaticResource FieldsMargin}"></Entry>
+
+            <Image Grid.Row="3" Grid.Column="0" Source="CompanyIcon" Style="{StaticResource IconsStyle}"></Image>
+            <Entry Text="{Binding Contact.Company}" Placeholder="Company" Grid.Row="3" Grid.Column="1" Style="{StaticResource FieldsMargin}"></Entry>
+
+            <Image Grid.Row="4" Grid.Column="0" Source="PhoneIcon" Style="{StaticResource IconsStyle}"></Image>
+            <Entry Text="{Binding Contact.Phone}" Placeholder="Phone" Keyboard="Telephone" Grid.Row="4" Grid.Column="1" ></Entry>
+                <Picker HorizontalOptions="StartAndExpand" Grid.Row="5" Grid.Column="1" WidthRequest="100" Style="{StaticResource FieldsMargin}">
+                <Picker.Items>
+                    <x:String>Mobile</x:String>
+                    <x:String>Home</x:String>
+                </Picker.Items>
+                <Picker.SelectedIndex>0</Picker.SelectedIndex>
+            </Picker>
+
+            <Image Grid.Row="6" Grid.Column="0" Source="Emailicon" Style="{StaticResource IconsStyle}"></Image>
+            <Entry Text="{Binding Contact.Email}" Placeholder="Email" Keyboard="Telephone" Grid.Row="6" Grid.Column="1"></Entry>
+            <Picker HorizontalOptions="StartAndExpand" Grid.Row="7" Grid.Column="1" WidthRequest="100" Style="{StaticResource FieldsMargin}">
+                <Picker.Items>
+                    <x:String>Home</x:String>
+                    <x:String>Work</x:String>
+                </Picker.Items>
+                <Picker.SelectedIndex>0</Picker.SelectedIndex>
+            </Picker>
+        </Grid>
     </ContentView.Content>
 </ContentView>

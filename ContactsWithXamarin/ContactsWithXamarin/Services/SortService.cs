@@ -18,9 +18,10 @@ namespace ContactsWithXamarin.Services
             DataManagmentService.SaveData(groups);
 
         }
-
+        
         public void SortContactCollection(ContactGroupCollection Group, ObservableCollection<ContactGroupCollection> groups)
         {
+            Group.First().GroupHeader = "";
             var item = new ObservableCollection<Contact>(Group.OrderBy(c => c.FirstName));
             var index = groups.IndexOf(Group);
             groups.Remove(Group);
@@ -30,7 +31,7 @@ namespace ContactsWithXamarin.Services
             {
                 Group.Add(contact);
             }
-
+            Group.First().GroupHeader = Group.Key;
             groups.Insert(index, Group);
 
             DataManagmentService.SaveData(groups);

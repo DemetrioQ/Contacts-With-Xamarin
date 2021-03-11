@@ -50,9 +50,40 @@ namespace ContactsWithXamarin.Models
                 OnPropertyChanged("Phone");
             }
         }
-        public string Company { get; set; }
-        public string Email { get; set; }
-        public string Notes { get; set; }
+
+        private string _groupHeader;
+        public string GroupHeader
+        {
+            get { return _groupHeader; }
+            set
+            {
+                _groupHeader = value;
+                OnPropertyChanged("GroupHeader");
+            }
+        }
+
+        private string _company;
+        public string Company
+        {
+            get { return _company; }
+            set
+            {
+                _company = value;
+                OnPropertyChanged("Company");
+            }
+        }
+
+
+        private string _Email;
+        public string Email
+        {
+            get { return _Email; }
+            set
+            {
+                _Email = value;
+                OnPropertyChanged("Email");
+            }
+        }
 
         public Contact()
         {

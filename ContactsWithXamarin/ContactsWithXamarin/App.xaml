@@ -3,7 +3,6 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="ContactsWithXamarin.App">
     <Application.Resources>
-
         <Color x:Key="DarkButtonBackground">#921813</Color>
 
         <Style x:Key="AnimationImageButton" TargetType="ImageButton">
@@ -24,7 +23,9 @@
                 </VisualStateGroupList>
             </Setter>
         </Style>
-
+        <Style x:Key="StandardFontSize" TargetType="Label">
+            <Setter Property="FontSize" Value="20"></Setter>
+        </Style>
         <Style x:Key="FABPrimary" TargetType="ImageButton" BasedOn="{StaticResource AnimationImageButton}">
             <Setter Property="CornerRadius" Value="100"/>
             <Setter Property="BackgroundColor" Value="{StaticResource DarkButtonBackground}"/>
@@ -36,6 +37,11 @@
             <Setter Property="Margin" Value="0,0,0,15"/>
         </Style>
 
+        <Style x:Key="IconsStyle" TargetType="Image">
+            <Setter Property="HeightRequest" Value="10"></Setter>
+            <Setter Property="WidthRequest" Value="10"></Setter>
+            <Setter Property="Margin" Value="12"></Setter>
+        </Style>
 
 
     </Application.Resources>

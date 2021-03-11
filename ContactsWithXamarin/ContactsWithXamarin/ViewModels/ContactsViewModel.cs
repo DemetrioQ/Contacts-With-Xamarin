@@ -84,6 +84,11 @@ namespace ContactsWithXamarin.ViewModels
                 {
                     Contacts.Remove(contactGroup);
                 }
+                else
+                {
+                    contactGroup.First().GroupHeader = contactGroup.Key;
+                }
+
                 DataManagmentService.SaveData(Contacts);
             }
         }

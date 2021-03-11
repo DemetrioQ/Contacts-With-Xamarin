@@ -6,8 +6,8 @@
              Title="Create contact">
 
     <ContentPage.ToolbarItems>
-        <ToolbarItem Text="Save" Command="{Binding AddCommand}"></ToolbarItem>
-        <ToolbarItem Text="Scan QR code" Command="{Binding ScanQrCommand}"></ToolbarItem>
+        <ToolbarItem Text="Save" Command="{Binding AddCommand}" Order="Primary"></ToolbarItem>
+        <ToolbarItem Text="Scan QR code" Command="{Binding ScanQrCommand}" Order="Secondary"></ToolbarItem>
     </ContentPage.ToolbarItems>
     <ContentPage.Content>
    

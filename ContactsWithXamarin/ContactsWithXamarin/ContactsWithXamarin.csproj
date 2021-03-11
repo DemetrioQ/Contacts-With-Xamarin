@@ -28,16 +28,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Compile Update="Controls\ContactsListView.xaml.cs">
-      <DependentUpon>ContactsListView.xaml</DependentUpon>
-    </Compile>
-  </ItemGroup>
-
-  <ItemGroup>
     <EmbeddedResource Update="Controls\ContacInfoView.xaml">
-      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
-    </EmbeddedResource>
-    <EmbeddedResource Update="Controls\ContactsListView.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
     <EmbeddedResource Update="Views\AddContactPage.xaml">

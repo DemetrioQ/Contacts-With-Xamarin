@@ -2,41 +2,60 @@
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="ContactsWithXamarin.Views.ContactsPage"
-             xmlns:android="clr-namespace:Xamarin.Forms.PlatformConfiguration.AndroidSpecific;assembly=Xamarin.Forms.Core"
              xmlns:local="clr-namespace:ContactsWithXamarin.Controls"
+             xmlns:android="clr-namespace:Xamarin.Forms.PlatformConfiguration.AndroidSpecific;assembly=Xamarin.Forms.Core"
              x:Name="contactPage">
-
     <AbsoluteLayout VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand" x:Name="absLayout">
+        <!-- GroupDisplayBinding="{Binding Key}"
+            GroupShortNameBinding="{Binding Key}"-->
         <ListView 
+            x:Name="lv"
             HasUnevenRows="True" 
-            ItemsSource="{Binding Contacts}" 
-            GroupDisplayBinding="{Binding Key}"
-            ItemSelected="ListViewItemSelected"
             IsGroupingEnabled="True"
+            ItemsSource="{Binding Contacts}" 
+            ItemSelected="ListViewItemSelected"
             SeparatorColor="Blue"
             SeparatorVisibility="None"
             HeightRequest="{Binding Path=Height, Source={x:Reference absLayout}}"
         >
             <ListView.Header>
-                <!--<Frame Margin="10,15,10,10" HasShadow="True" CornerRadius="10" HeightRequest="40" WidthRequest="60" Padding="10">
-                    <Grid ColumnDefinitions="30,*,30,30" >
-                        <Entry Grid.Column="0" ></Entry>
-                        <Entry Placeholder="Search Contacts" Grid.Column="1"></Entry>
-                        <Entry Grid.Column="2" ></Entry>
-                        <Entry Grid.Column="3" ></Entry>
+                <Frame Margin="10,20,10,10" HasShadow="True" CornerRadius="10" HeightRequest="50" WidthRequest="60" Padding="5">
+                    <Grid ColumnDefinitions="40,*,40, 50" >
+                        <Image Grid.Column="0" Source="MenuIcon" HorizontalOptions="Center" VerticalOptions="Center" HeightRequest="20" WidthRequest="20" Margin="5"></Image>
+                        <local:EntryControl Placeholder="Search Contacts" Grid.Column="1" ></local:EntryControl>
+                        <Image Grid.Column="2" Source="MoreOptions" HorizontalOptions="Center" VerticalOptions="Center" HeightRequest="20" WidthRequest="20" Margin="5"></Image>
+                        <Frame CornerRadius="60" Grid.Column="3" Padding="5" BorderColor="Red">
+                            <ImageButton CornerRadius="60"  Source="cat.jpg" Aspect="AspectFill"  ></ImageButton>
+                        </Frame>
                     </Grid>
-                </Frame>-->
-                <Frame Margin="10,15,10,10" HasShadow="True" CornerRadius="10" HeightRequest="40" WidthRequest="60" Padding="10">
-                    <SearchBar>
-
-                    </SearchBar>
                 </Frame>
-
             </ListView.Header>
+
+            <ListView.GroupHeaderTemplate>
+                <DataTemplate>
+                    <ViewCell>
+                        <Label Text ="{Binding Key}" IsVisible="False" Margin="0" Padding="0" HeightRequest="0" WidthRequest="0"/>
+                    </ViewCell>
+                </DataTemplate>
+            </ListView.GroupHeaderTemplate>
+
             <ListView.ItemTemplate>
                 <DataTemplate>
                     <ViewCell>
-                        <local:ContactsListView></local:ContactsListView>
+                        <Grid ColumnDefinitions="50,50,*" Margin="10">
+                            <Label Text="{Binding GroupHeader}" HorizontalOptions="Center" VerticalOptions="Center" Margin="0,0,20,0" TextColor="Blue" Style="{StaticResource StandardFontSize}"></Label>
+                            <Frame Padding="0" CornerRadius="60" IsClippedToBounds="True" HeightRequest="50" WidthRequest="50" HorizontalOptions="Start" Grid.Column="1">
+                                <Image Source="{Binding Image}" Aspect="AspectFill"></Image>
+                            </Frame>
+                            <Label Grid.Column="2" HorizontalTextAlignment="Start" TextColor="Black" Padding="10" Style="{StaticResource StandardFontSize}">
+                                <Label.Text>
+                                    <MultiBinding StringFormat="{} {0} {1}">
+                                        <Binding Path="FirstName"></Binding>
+                                        <Binding Path="LastName"></Binding>
+                                    </MultiBinding>
+                                </Label.Text>
+                            </Label>
+                        </Grid>
                         <ViewCell.ContextActions>
                             <MenuItem Text="More" Command="{Binding  Source={x:Reference contactPage}, Path=BindingContext.MoreCommand}" CommandParameter="{Binding}"></MenuItem>
                             <MenuItem Text="Delete" Command="{Binding Source={x:Reference contactPage}, Path=BindingContext.DeleteCommand}" CommandParameter="{Binding}"></MenuItem>
@@ -46,6 +65,52 @@
                 </DataTemplate>
             </ListView.ItemTemplate>
         </ListView>
+        
+        <!--Idea: Añadir una propiedad que sea igual o a un espaciovacio o a la letra que corresponde al grupo dependendiendo-->
+
+        <!-- <CollectionView 
+            Margin="10"
+            HorizontalScrollBarVisibility="Always"
+            ItemsSource="{Binding Contacts}"
+            IsGrouped="True"
+            HeightRequest="{Binding Path=Height, Source={x:Reference absLayout}}"
+            
+            >
+
+            <CollectionView.Header>
+                <Frame Margin="10,20,10,10" HasShadow="True" CornerRadius="10" HeightRequest="50" WidthRequest="60" Padding="5">
+                    <Grid ColumnDefinitions="40,*,40, 50" >
+                        <Image Grid.Column="0" Source="MenuIcon" HorizontalOptions="Center" VerticalOptions="Center" HeightRequest="20" WidthRequest="20" Margin="5"></Image>
+                        <local:EntryControl Placeholder="Search Contacts" Grid.Column="1" ></local:EntryControl>
+                        <Image Grid.Column="2" Source="MoreOptions" HorizontalOptions="Center" VerticalOptions="Center" HeightRequest="20" WidthRequest="20" Margin="5"></Image>
+                        <Frame CornerRadius="60" Grid.Column="3" Padding="5" BorderColor="Red">
+                            <ImageButton CornerRadius="60"  Source="cat.jpg" Aspect="AspectFill"  ></ImageButton>
+                        </Frame>
+                    </Grid>
+                </Frame>
+            </CollectionView.Header>
+            
+            <CollectionView.GroupHeaderTemplate>
+                <DataTemplate>
+                    <Label Text="{Binding Key}"></Label>
+                </DataTemplate>
+            </CollectionView.GroupHeaderTemplate>
+            <CollectionView.ItemsLayout>
+                <GridItemsLayout Orientation="Vertical"/>
+            </CollectionView.ItemsLayout>
+            <CollectionView.ItemTemplate>
+                <DataTemplate>
+                    <local:ContactsListView></local:ContactsListView>
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+            <CollectionView.EmptyView>
+                <Label Text="No items"
+               HorizontalOptions="Center"
+               VerticalOptions="Center"/>
+            </CollectionView.EmptyView>
+
+        </CollectionView> -->
+
         <ImageButton Source="AddContactIcon"  VerticalOptions="End" BackgroundColor="Transparent" AbsoluteLayout.LayoutBounds="1,1,AutoSize,AutoSize" AbsoluteLayout.LayoutFlags="PositionProportional" Style="{StaticResource FABPrimary}" Command="{Binding AddCommand}">
         </ImageButton>
     </AbsoluteLayout>
